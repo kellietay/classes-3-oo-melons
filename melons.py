@@ -11,7 +11,9 @@ class AbstractMelonOrder():
 		self.qty = qty
 
 		if self.qty > 100:
-			raise TooManyMelonsError("Cannot buy more than 100 melons")
+#			raise TooManyMelonsError("Cannot buy more than 100 melons. \
+#You have bought {} melons".format(self.qty))
+			raise TooManyMelonsError("Error",self.qty)
 		self.shipped = False
 		if country_code:
 			self.country_code = country_code
@@ -90,9 +92,13 @@ class GovernmentMelonOrder(AbstractMelonOrder):
 
 
 class TooManyMelonsError(ValueError):
-	pass
 
-#    def __init__(self):
-    	#self.message = message
-    	#self.qty = qty	
-    	#print( "Cannot buy more than {} melons".format(self.qty))
+
+    def __init__(self,message,qty):
+    	self.message = message
+    	self.qty = qty
+    	self.display_error()
+    	
+    def display_error(self):
+    	print("Cannot buy more than 100 melons\
+You have bought {} melons".format(self.qty))
